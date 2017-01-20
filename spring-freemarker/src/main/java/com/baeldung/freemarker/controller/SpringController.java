@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import com.baeldung.freemarker.model.PaginationData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -16,8 +17,8 @@ import com.baeldung.freemarker.model.Car;
 @Controller
 public class SpringController {
 
-	private static List<Car> carList = new ArrayList<Car>();
-	
+	private static List<Car> carList = new ArrayList<>();
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		return "redirect:/cars";
@@ -27,12 +28,92 @@ public class SpringController {
 		carList.add(new Car("Honda", "Civic"));
 		carList.add(new Car("Toyota", "Camry"));
 		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
+		carList.add(new Car("Honda", "Civic"));
+		carList.add(new Car("Toyota", "Camry"));
+		carList.add(new Car("Nissan", "Altima"));
 	}
 
 
 	@RequestMapping(value = "/cars", method = RequestMethod.GET)
 	public String init(@ModelAttribute("model") ModelMap model) {
 		model.addAttribute("carList", carList);
+		PaginationData paginationData = new PaginationData(0, 10, carList.size(), "Asc", "Make");
+		model.addAttribute("paginationData", paginationData);
 		return "index";
 	}
 

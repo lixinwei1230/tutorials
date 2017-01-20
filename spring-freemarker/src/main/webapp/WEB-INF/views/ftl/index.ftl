@@ -1,3 +1,4 @@
+<#import "pagination.ftl" as pagination />
 <html>
 <head><title> FreeMarker Spring MVC Hello World</title>
 
@@ -24,6 +25,7 @@ body, input {
 
 fieldset { width: 300px; padding: 5px; margin-bottom: 0px; }
 legend { font-weight: bold; }
+
 </style>
 
 <body>
@@ -55,7 +57,22 @@ legend { font-weight: bold; }
 	  	</tr>
     </#list>
   </table>
+  <br/>
 
-</div>  
+</div>
+
+
+<div>
+	<@pagination.bind model["paginationData"] />
+		<#--前一个参数是总记录数，后一个参数是页面记录数-->
+	<nav style="float:right;">
+		<@pagination.first />
+		<@pagination.previous />
+		<@pagination.numbers />
+		<@pagination.next />
+		<@pagination.last />
+	</nav>
+	<@pagination.counter />
+</div>
 </body>
-</html>  
+</html>
