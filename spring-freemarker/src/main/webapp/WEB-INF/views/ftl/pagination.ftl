@@ -27,11 +27,9 @@
  *
  * Either way, the pagination data object is expected to contain (at least) the following properties:
  *
- * pageNumber -> The current page number
+ * pageIndex -> The current page number
  * pageSize -> The number of items in each page
  * pagesAvailable -> The total number of pages
- * sortDirection -> The sorting direction (ascending or descending)
- * sortField -> The field currently sorted by
  *
  *
  * Page links consist of the current request url and a query string that looks like:
@@ -66,7 +64,7 @@
  * Outputs the first page link
 -->
 <#macro first>
-    <#if (data.pageNumber < 1)>
+    <#if (data.pageIndex < 1)>
         <#local classAttr = "class=\"disabled\"" />
     <#else>
         <#local classAttr = "" />
@@ -81,7 +79,7 @@
  * Outputs the last page link
 -->
 <#macro last>
-    <#if (data.pageNumber >= data.pagesAvailable - 1)>
+    <#if (data.pageIndex >= data.pagesAvailable - 1)>
         <#local classAttr = "class=\"disabled\"" />
     <#else>
         <#local classAttr = "" />
@@ -96,34 +94,34 @@
  * Outputs the next page link
 -->
 <#macro next>
-    <#if (data.pageNumber >= data.pagesAvailable - 1)>
-        <#local pageNumber = data.pageNumber />
+    <#if (data.pageIndex >= data.pagesAvailable - 1)>
+        <#local pageIndex = data.pageIndex />
         <#local classAttr = "class=\"disabled\"" />
     <#else>
-        <#local pageNumber = data.pageNumber + 1 />
+        <#local pageIndex = data.pageIndex + 1 />
         <#local classAttr = "" />
     </#if>
     <#local text>
         <@spring.messageText "pagination.next", "Next »" />
     </#local>
-    <@page pageNumber, text, classAttr/>
+    <@page pageIndex, text, classAttr/>
 </#macro>
 
 <#--
  * Outputs the previous page link
 -->
 <#macro previous>
-    <#if (data.pageNumber < 1)>
-        <#local pageNumber = data.pageNumber />
+    <#if (data.pageIndex < 1)>
+        <#local pageIndex = data.pageIndex />
         <#local classAttr = "class=\"disabled\"" />
     <#else>
-        <#local pageNumber = data.pageNumber - 1 />
+        <#local pageIndex = data.pageIndex - 1 />
         <#local classAttr = "" />
     </#if>
     <#local text>
         <@spring.messageText "pagination.previous", "« Previous" />
     </#local>
-    <@page pageNumber, text, classAttr/>
+    <@page pageIndex, text, classAttr/>
 </#macro>
 
 <#--
@@ -138,8 +136,8 @@
     <#if maxPages % 2 == 0>
         <#local pagesBefore = pagesBefore - 1 />
     </#if>
-    <#local pageNumMin = data.pageNumber - pagesBefore />
-    <#local pageNumMax = data.pageNumber + pagesBefore />
+    <#local pageNumMin = data.pageIndex - pagesBefore />
+    <#local pageNumMax = data.pageIndex + pagesBefore />
     <#if (pageNumMin < 0)>
         <#local pageNumMax = pageNumMax + (0 - pageNumMin) />
         <#local pageNumMin = 0 />
@@ -154,32 +152,31 @@
             <#local pageNumMax = 0 />
         </#if>
     </#if>
-    <#list pageNumMin..pageNumMax as pageNumber>
-        <#if pageNumber == data.pageNumber>
+    <#list pageNumMin..pageNumMax as pageIndex>
+        <#if pageIndex == data.pageIndex>
             <#local classAttr = "class=\"selected\"" />
         <#else>
             <#local classAttr = "" />
         </#if>
-        <@page pageNumber, "", classAttr/><#if pageNumber_has_next>${separator}</#if>
+        <@page pageIndex, "", classAttr/><#if pageIndex_has_next>${separator}</#if>
     </#list>
 </#macro>
 
 <#--
  * Outputs a link to a specific page.
  *
- * @param pageNumber To page number ot link to
+ * @param pageIndex To page number ot link to
  * @param text (Optional) The link text (Defaults to page number if not set)
  * @param attributes (Optional) Any HTML attributes to add to the element
 -->
-<#macro page pageNumber text = "" attributes = "">
+<#macro page pageIndex text = "" attributes = "">
     <#if text == "">
-        <#local text = (pageNumber + 1)?string />
+        <#local text = (pageIndex + 1)?string />
     </#if>
     <#if (attributes != "" && attributes?starts_with(" ") == false)>
         <#local attributes = " " + attributes />
     </#if>
-    <#setting url_escaping_charset='ISO-8859-1'>
-    <a href="?field=${data.sortField?url}&amp;page=${pageNumber}&amp;size=${data.pageSize}&amp;direction=${data.sortDirection?url}"${attributes}>${text?html}</a>
+    <a href="?pageindex=${pageIndex}&amp;pagesize=${data.pageSize}&amp;pagesavailable=${data.pagesAvailable}"${attributes}>${text?html}</a>
 </#macro>
 
 <#--
@@ -191,37 +188,5 @@
     <#else>
         <#local pagesAvailable = data.pagesAvailable />
     </#if>
-    <@spring.messageArgsText "pagination.counter", [data.pageNumber + 1, pagesAvailable], "{0} of {1}" />
-</#macro>
-
-<#--
- * Outputs a link to sort by a field.
- * @param field The field to sort by. If field is different to the current sort field, the link will change the sort
- * field but not the sort direction. If the field is the same as the current sort field, the link will change the sort
- * direction.
- * @param text (Optional) The link text. If no text is specified the field name is used with a upper case first letter.
- * @param attributes (Optional) Any HTML attributes to add to the element
- * @param directions (Optional) An array of two items. The words being used in data.sortDirection to describe
- * the sorting direction of ascending or descending. Default: ["Asc", "Desc"]. So we can compare the current sorting
- * direction and switch to the converse.
--->
-<#macro sort field text = "" attributes = "" directions = ["Asc", "Desc"]>
-    <#if field == data.sortField>
-    <#-- Change sort direction -->
-        <#if data.sortDirection?lower_case == directions[0]?lower_case>
-            <#local direction = directions[1] />
-        <#else>
-            <#local direction = directions[0] />
-        </#if>
-    <#else>
-    <#-- Change sort field (leave sort direction) -->
-        <#local direction = data.sortDirection />
-    </#if>
-    <#if text == "">
-        <#local text = field?cap_first />
-    </#if>
-    <#if (attributes != "" && attributes?starts_with(" ") == false)>
-        <#local attributes = " " + attributes />
-    </#if>
-    <a href="?field=${field?url}&amp;page=${data.pageNumber}&amp;size=${data.pageSize}&amp;direction=${direction?url}"${attributes}>${text?html}</a>
+    <@spring.messageArgsText "pagination.counter", [data.pageIndex + 1, pagesAvailable], "{0} of {1}" />
 </#macro>

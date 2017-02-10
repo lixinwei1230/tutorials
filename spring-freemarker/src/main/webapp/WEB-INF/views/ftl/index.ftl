@@ -51,7 +51,7 @@ legend { font-weight: bold; }
   	<tr>
   		<th>Make</th>  <th>Model</th>
   	</tr>
-    <#list model["carList"] as car>
+    <#list cars as car>
 	  	<tr>
 	  		<td>${car.make}</td> <td>${car.model}</td>
 	  	</tr>
@@ -63,8 +63,7 @@ legend { font-weight: bold; }
 
 
 <div>
-	<@pagination.bind model["paginationData"] />
-		<#--前一个参数是总记录数，后一个参数是页面记录数-->
+    <#--前一个参数是总记录数，后一个参数是页面记录数-->
 	<nav style="float:right;">
 		<@pagination.first />
 		<@pagination.previous />

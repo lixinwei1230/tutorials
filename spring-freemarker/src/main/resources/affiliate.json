@@ -1,0 +1,63 @@
+{
+  "payload": {
+    "_id": "BJgY883Bg",
+    "referral": {
+      "code": "9Emp6prBDXZZ",
+      "history": []
+    },
+    "name": "Chris  Caknow shopper",
+    "email": "chris@caknow.com",
+    "phone": "6262504302",
+    "ct": 1483658871,
+    "__v": 20,
+    "rate": {
+      "salesTax": 0.09,
+      "serviceFee": 0.1
+    },
+    "geoLoc": {
+      "lng": -118.300032,
+      "lat": 33.741723
+    },
+    "address": {
+      "postalCode": "90731",
+      "state": "CA",
+      "city": "San Pedro",
+      "lineOne": "241 s la alameda ave",
+      "lineTwo": "",
+      "country": "US"
+    },
+    "verified": true,
+    "stripeAccount": {
+      "id": "acct_19YkeEGVDui0lmlq",
+      "verificationStatus": "unverified",
+      "chargesEnabled": true,
+      "transfersEnabled": false,
+      "bankAccounts": [
+        {
+          "isDefault": true,
+          "last4": "6789",
+          "routingNumber": "110000000",
+          "status": "new",
+          "bankName": "STRIPE TEST BANK"
+        }
+      ],
+      "entityType": null,
+      "legalBusinessName": null,
+      "legalFirstName": null,
+      "legalLastName": null,
+      "dateOfBirth": {
+        "day": null,
+        "month": null,
+        "year": null
+      },
+      "billingAddress": {
+        "city": null,
+        "country": "US",
+        "line1": null,
+        "line2": null,
+        "postal_code": null,
+        "state": null
+      }
+    }
+  }
+}

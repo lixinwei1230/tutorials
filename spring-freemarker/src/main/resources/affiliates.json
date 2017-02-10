@@ -1,0 +1,33 @@
+{
+  "payload": {
+    "metadata": {
+      "queryCount": 1,
+      "perPageCount": 25,
+      "pageCount": 1,
+      "page": 1
+    },
+    "data": [
+      {
+        "_id": "BJgY883Bg",
+        "referral": {
+          "code": "9Emp6prBDXZZ",
+          "history": []
+        },
+        "name": "Chris  Caknow shopper",
+        "email": "chris@caknow.com",
+        "phone": "6262504302",
+        "ct": 1483658871,
+        "createBy": 0,
+        "rate": {
+          "serviceFee": 0.1
+        },
+        "address": {
+          "postalCode": "90731",
+          "state": "CA",
+          "city": "San Pedro"
+        },
+        "verified": true
+      }
+    ]
+  }
+}

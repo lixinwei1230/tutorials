@@ -5,29 +5,27 @@ package com.baeldung.freemarker.model;
  */
 public class PaginationData {
 
-    public int pageNumber;
-    public int pageSize;
+    private int pageIndex;
+    private int pageSize;
+    private int numOfItems;
     public int pagesAvailable;
-    public String sortDirection;
-    public String sortField;
 
     public PaginationData() {
 
     }
 
-    public PaginationData(int pageNumber, int pageSize, int pagesAvailable, String sortDirection, String sortField) {
-        this.pageNumber = pageNumber;
+    public PaginationData(int pageIndex, int pageSize, int numOfItems) {
+        this.pageIndex = pageIndex;
         this.pageSize = pageSize;
-        this.pagesAvailable = pagesAvailable;
-        this.sortDirection = sortDirection;
-        this.sortField = sortField;
+        this.numOfItems = numOfItems;
+        this.pagesAvailable = numOfItems / pageSize;
     }
 
-    public int getPageNumber() {
-        return pageNumber;
+    public int getPageIndex() {
+        return pageIndex;
     }
-    public void setPageNumber(int pageNumber) {
-        this.pageNumber = pageNumber;
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = pageIndex;
     }
 
     public int getPageSize() {
@@ -44,17 +42,4 @@ public class PaginationData {
         this.pagesAvailable = pagesAvailable;
     }
 
-    public String getSortDirection() {
-        return sortDirection;
-    }
-    public void setSortDirection(String sortDirection) {
-        this.sortDirection = sortDirection;
-    }
-
-    public String getSortField() {
-        return sortField;
-    }
-    public void setSortField(String sortField) {
-        this.sortField = sortField;
-    }
 }
